@@ -6,8 +6,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get('http://localhost:5000/api/intern');
-      setInternData(res.data);
+      try {
+        const res = await axios.get('https://fundraisingbackend.onrender.com/api/intern');
+
+        setInternData(res.data);
+      } catch (error) {
+        console.error('Error fetching intern data:', error);
+      }
     };
     fetchData();
   }, []);
@@ -20,7 +25,7 @@ const Dashboard = () => {
           <div className="card">
             <h2>{internData.name}</h2>
             <p>Referral Code: <strong>{internData.referralCode}</strong></p>
-            <h3 style={{ color: '#27ae60' }}>Total Donations: ₹{internData.totalDonations}</h3>
+            <h3 style={{ color: '#27ae60' }}>Total Donations: ₹{internData.donationsRaised}</h3>
           </div>
           <div className="card">
             <h3>Rewards / Unlockables</h3>
